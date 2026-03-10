@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+</head>
+
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<div id="calls"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+
+const socket = io();
+
+socket.on("incoming-call", ()=>{
+
+let accept = confirm("User calling. Accept?");
+
+if(accept){
+alert("Call Connected");
+}
+
+});
+
+</script>
+
+</body>
+</html>
