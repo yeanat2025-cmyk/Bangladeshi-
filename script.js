@@ -2,15 +2,12 @@ const socket = io();
 
 let localStream;
 let peer;
-let recorder;
 
 const video = document.getElementById("video");
 
 /* USER JOIN CALL */
 
 async function joinCall(){
-
-socket.emit("user-call");
 
 localStream = await navigator.mediaDevices.getUserMedia({
 video:true,
@@ -19,25 +16,27 @@ audio:true
 
 video.srcObject = localStream;
 
+socket.emit("user-call");
+
 }
 
 /* ADMIN RECEIVE CALL */
 
 socket.on("incoming-call", ()=>{
 
-let accept = confirm("User Calling... Accept?");
+let accept = confirm("User is calling. Accept?");
 
 if(accept){
 
-startPeer();
+startCall();
 
 }
 
 });
 
-/* WEBRTC CONNECTION */
+/* START CALL */
 
-function startPeer(){
+function startCall(){
 
 peer = new RTCPeerConnection();
 
@@ -51,25 +50,7 @@ video.srcObject = e.streams[0];
 
 }
 
-/* VIDEO RECORD */
-
-function startRecord(){
-
-recorder = new MediaRecorder(localStream);
-
-recorder.start();
-
-}
-
-/* STOP RECORD */
-
-function stopRecord(){
-
-recorder.stop();
-
-}
-
-/* SNAPSHOT IMAGE */
+/* SNAPSHOT */
 
 function takePhoto(){
 
@@ -85,7 +66,7 @@ let img = canvas.toDataURL("image/png");
 let link = document.createElement("a");
 
 link.href = img;
-link.download = "snapshot.png";
+link.download = "photo.png";
 
 link.click();
 
