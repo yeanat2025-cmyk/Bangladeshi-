@@ -1,37 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>User Call</title>
+
+<style>
+
+.seat{
+width:80px;
+height:80px;
+background:green;
+color:white;
+margin:10px;
+display:inline-block;
+text-align:center;
+line-height:80px;
+cursor:pointer;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h2>Support Call</h2>
+<h2>Join Seat</h2>
 
-<button onclick="joinCall()">Join Call</button>
-
-<video id="video" autoplay playsinline></video>
+<div id="seats"></div>
 
 <script src="/socket.io/socket.io.js"></script>
-
-<script>
-
-const socket = io();
-
-function joinCall(){
-
-socket.emit("user-call");
-
-navigator.mediaDevices.getUserMedia({
-video:true,
-audio:true
-}).then(stream=>{
-document.getElementById("video").srcObject = stream;
-});
-
-}
-
-</script>
+<script src="script.js"></script>
 
 </body>
+
 </html>
