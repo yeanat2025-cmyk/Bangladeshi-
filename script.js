@@ -89,4 +89,4 @@ link.download = "snapshot.png";
 
 link.click();
 
-}o
+}
